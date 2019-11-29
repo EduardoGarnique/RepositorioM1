@@ -18,30 +18,36 @@ iso Ubuntu Server 18.04
 
 ### Instalación 🔧
 
-[Video de Instalacion](https://youtu.be/-dgNj3HRzyc) - El framework web usado
+[Video de Instalacion](https://youtu.be/-dgNj3HRzyc)
 
-[Lista de comandos usados](https://drive.google.com/file/d/1QtP3Sm6ZB1hYIHcEJa3v_uyW1PSPchEM/view) - El framework web usado
+[Lista de comandos usados](https://drive.google.com/file/d/1QtP3Sm6ZB1hYIHcEJa3v_uyW1PSPchEM/view)
 
-## Ejecutando las pruebas ⚙️
+## Ejecutando el analisis ⚙️
 
-_Explica como ejecutar las pruebas automatizadas para este sistema_
+### Se comprueba si los datos estan limpios 🔩
 
-### Analice las pruebas end-to-end 🔩
+verificamos que no hayan datos null en las columnas 
 
-_Explica que verifican estas pruebas y por qué_
+```
+(pondre codigo)
+```
 
+### Dividimos los datos en datos para ENTRENAR, PROBAR y VALIDAR ⌨️
+
+la base de datos cuenta con los datos desde el 11-09-2018 hasta el 30-11-2018(8060 Registros )
+
+*Para entrenar se usaran los datos desde 11-09-2018 hasta 31-10-2018
 ```
 Da un ejemplo
 ```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
+*Para entrenar se usaran los datos desde 1-11-2018 hasta 15-11-2018
 ```
 Da un ejemplo
 ```
-
+*Para entrenar se usaran los datos desde 16-11-2018 hasta 30-11-2018
+```
+Da un ejemplo
+```
 ## Despliegue 📦
 
 _Agrega notas adicionales sobre como hacer deploy_
