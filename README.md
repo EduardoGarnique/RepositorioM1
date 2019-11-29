@@ -26,10 +26,20 @@ iso Ubuntu Server 18.04
 
 ### Se comprueba si los datos estan limpios 🔩
 
-verificamos que no hayan datos null en las columnas 
+ver cantidad de registros
 
 ```
-(pondre codigo)
+print (df_movimiento.shape)
+```
+ver los tipos de datos
+
+```
+print (df_movimiento.info())
+```
+ver si hay datos nulos
+
+```
+print (pd.isnull(df_movimiento).sum())
 ```
 
 ### Dividimos los datos en datos para ENTRENAR, PROBAR y VALIDAR ⌨️
