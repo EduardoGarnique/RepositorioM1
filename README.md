@@ -333,7 +333,7 @@ df_movimiento
 <p>8060 rows × 30 columns</p>
 </div>
 
-### Se comprueba si los datos estan limpios 🔩
+### Se comprueba si los datos estan limpios(Pre-Procesamiento) 🔩
 
 ver cantidad de registros
 
