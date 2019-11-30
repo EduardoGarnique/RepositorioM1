@@ -642,31 +642,44 @@ print (df_movimiento.shape)
     
 ### Dividimos los datos en datos para ENTRENAR, PROBAR y VALIDAR ⌨️
 
-la base de datos cuenta con los datos desde el 11-09-2018 hasta el 30-11-2018(8060 Registros )
+la base de datos cuenta con los datos desde el 11-09-2018 hasta el 30-11-2018(8058 Registros )
 
 *Para entrenar se usaran los datos desde 11-09-2018 hasta 31-10-2018
+```python
+consulta4 = "SELECT * FROM `movimiento` where dMovFecha >='2018-09-11' and dMovFecha <='2018-10-31'"
+df_train= pd.read_sql(consulta4, db, )
+print (df_train.shape)
 ```
-Da un ejemplo
+    (5004, 30)
+    
+*Para provar se usaran los datos desde 1-11-2018 hasta 15-11-2018
+```python
+consulta5 = "SELECT * FROM `movimiento` where dMovFecha >='2018-11-01' and dMovFecha <='2018-11-15'"
+df_test= pd.read_sql(consulta5, db, )
+print (df_test.shape)
 ```
-*Para entrenar se usaran los datos desde 1-11-2018 hasta 15-11-2018
+    (1390, 30)
+    
+*Para validar se usaran los datos desde 16-11-2018 hasta 30-11-2018
+```python
+consulta6 = "SELECT * FROM `movimiento` where dMovFecha >='2018-11-16' and dMovFecha <='2018-11-30'"
+df_vali= pd.read_sql(consulta6, db, )
+print (df_vali.shape)
 ```
-Da un ejemplo
-```
-*Para entrenar se usaran los datos desde 16-11-2018 hasta 30-11-2018
-```
-Da un ejemplo
-```
+    (1664, 30)
+    
 ## Despliegue 📦
 
-_Agrega notas adicionales sobre como hacer deploy_
+
 
 ## Construido con 🛠️
 
 Librerias usadas
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
+* [pandas](https://pandas.pydata.org/) 
+* [pymysql](https://pypi.org/project/PyMySQL/) 
+* [matplotlib.pyplot](https://matplotlib.org/)
+* [numpy](https://numpy.org/)
 
 🖇️
 
