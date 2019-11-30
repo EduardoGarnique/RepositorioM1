@@ -24,6 +24,327 @@ iso Ubuntu Server 18.04
 
 ## Ejecutando el analisis ⚙️
 
+### Se selecciona el la tabla a la cual usaremos para la prediccion 📄
+
+para esto jalamos los datos de la tabla movimiento para convertirla en un data frames
+
+```python
+Tabla_movimiento = "SELECT * FROM movimiento"
+df_movimiento = pd.read_sql(Tabla_movimiento, db, )
+df_movimiento
+```
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Movimiento_Id</th>
+      <th>dMovFecha</th>
+      <th>nMovTipoMovimiento_Id</th>
+      <th>nMovTipopago</th>
+      <th>Almacen_Id</th>
+      <th>nMovTipoOrigenDestino</th>
+      <th>nMovOrigenDestino_Id</th>
+      <th>nMovTipodestino</th>
+      <th>Documento_Id</th>
+      <th>sMovDocumento</th>
+      <th>...</th>
+      <th>dMovRetencion</th>
+      <th>sMovObservacion</th>
+      <th>nMovEstadoSunat</th>
+      <th>nMovEstado</th>
+      <th>nMovEliminado</th>
+      <th>dMovFecha_Act</th>
+      <th>Usuario_Id</th>
+      <th>nMovClasificador_Id</th>
+      <th>nMovMovimiento_Id</th>
+      <th>nMovOrdenCampo_Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>2018-09-11</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>64</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA: M4C-849 / T5Q-998</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-09-11 16:29:38</td>
+      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>2018-09-11</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA:  ANU-925 / TCZ-988</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-09-11 16:54:44</td>
+      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>3</td>
+      <td>2018-09-11</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>91</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA:  AFE-904 / TBK-978</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-09-11 17:12:46</td>
+      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>4</td>
+      <td>2018-09-11</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>99</td>
+      <td>2</td>
+      <td>1</td>
+      <td>4</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA:  AUG-886 / M3P-989</td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>2018-09-11 17:18:12</td>
+      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>5</td>
+      <td>2018-09-11</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>100</td>
+      <td>2</td>
+      <td>1</td>
+      <td>5</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA:  D4D-796 / M3G-987</td>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>2018-09-11 17:43:06</td>
+      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <td>8055</td>
+      <td>8058</td>
+      <td>2018-11-30</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>71</td>
+      <td>2</td>
+      <td>1</td>
+      <td>8011</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA: APO-886/TDH-974</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-11-30 22:01:09</td>
+      <td>32</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8056</td>
+      <td>8059</td>
+      <td>2018-11-30</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>74</td>
+      <td>2</td>
+      <td>1</td>
+      <td>8012</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA: T1E-940/T1C-997</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-11-30 22:43:11</td>
+      <td>32</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8057</td>
+      <td>8060</td>
+      <td>2018-11-30</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>28</td>
+      <td>2</td>
+      <td>1</td>
+      <td>8013</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA: ARC-728/TCW-988</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-11-30 22:46:00</td>
+      <td>32</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8058</td>
+      <td>8061</td>
+      <td>2018-11-30</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>17</td>
+      <td>2</td>
+      <td>1</td>
+      <td>8014</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA: A4W-928/T3Q-981</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-11-30 22:49:01</td>
+      <td>32</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8059</td>
+      <td>8062</td>
+      <td>2018-11-30</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>166</td>
+      <td>2</td>
+      <td>1</td>
+      <td>8015</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>PLACA: A3B-857/T2K-970</td>
+      <td>3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2018-11-30 22:58:52</td>
+      <td>32</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>8060 rows × 30 columns</p>
+</div>
+
 ### Se comprueba si los datos estan limpios 🔩
 
 ver cantidad de registros
