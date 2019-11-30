@@ -340,7 +340,6 @@ ver cantidad de registros
 ```python
 print (df_movimiento.shape) 
 ```
-
     (8060, 30)
     
 ver los tipos de datos
@@ -348,7 +347,6 @@ ver los tipos de datos
 ```python
 print (df_movimiento.info())
 ```
-
     <class 'pandas.core.frame.DataFrame'>
     RangeIndex: 8060 entries, 0 to 8059
     Data columns (total 30 columns):
@@ -386,13 +384,11 @@ print (df_movimiento.info())
     memory usage: 1.8+ MB
     None
 
-
 ver si hay datos nulos
 
 ```python
 print (pd.isnull(df_movimiento).sum())
 ```
-
     Movimiento_Id            0
     dMovFecha                0
     nMovTipoMovimiento_Id    0
@@ -424,9 +420,239 @@ print (pd.isnull(df_movimiento).sum())
     nMovMovimiento_Id        0
     nMovOrdenCampo_Id        0
     dtype: int64
-    
-    
+ver estadísticas descriptivas que resumen la tendencia central, la dispersión y la forma de la distribución de un conjunto de datos.
+```python
+print (df_movimiento.describe())
+```
 
+           Movimiento_Id  nMovTipoMovimiento_Id  nMovTipopago  Almacen_Id  \
+    count    8060.000000            8060.000000   8060.000000      8060.0   
+    mean     4032.475434               1.999504      1.023945         1.0   
+    std      2326.907957               0.031503      0.152889         0.0   
+    min         1.000000               0.000000      1.000000         1.0   
+    25%      2017.750000               2.000000      1.000000         1.0   
+    50%      4032.500000               2.000000      1.000000         1.0   
+    75%      6047.250000               2.000000      1.000000         1.0   
+    max      8062.000000               2.000000      2.000000         1.0   
+    
+           nMovTipoOrigenDestino  nMovOrigenDestino_Id  nMovTipodestino  \
+    count                 8060.0           8060.000000      8060.000000   
+    mean                     2.0             70.913400         1.999752   
+    std                      0.0             41.726762         0.015751   
+    min                      2.0              0.000000         1.000000   
+    25%                      2.0             39.000000         2.000000   
+    50%                      2.0             66.000000         2.000000   
+    75%                      2.0            105.000000         2.000000   
+    max                      2.0            184.000000         2.000000   
+    
+           Documento_Id  Moneda_Id  nMovTipoCambio  ...  dMovDetraccion  \
+    count   8060.000000     8060.0          8060.0  ...          8060.0   
+    mean       1.022333        1.0             1.0  ...             0.0   
+    std        0.298064        0.0             0.0  ...             0.0   
+    min        1.000000        1.0             1.0  ...             0.0   
+    25%        1.000000        1.0             1.0  ...             0.0   
+    50%        1.000000        1.0             1.0  ...             0.0   
+    75%        1.000000        1.0             1.0  ...             0.0   
+    max        5.000000        1.0             1.0  ...             0.0   
+    
+           dMovPercepcion  dMovRetencion  nMovEstadoSunat   nMovEstado  \
+    count          8060.0         8060.0      8060.000000  8060.000000   
+    mean              0.0            0.0         2.983499     2.083499   
+    std               0.0            0.0         0.281542     0.449567   
+    min               0.0            0.0        -1.000000     0.000000   
+    25%               0.0            0.0         3.000000     2.000000   
+    50%               0.0            0.0         3.000000     2.000000   
+    75%               0.0            0.0         3.000000     2.000000   
+    max               0.0            0.0         4.000000     5.000000   
+    
+           nMovEliminado   Usuario_Id  nMovClasificador_Id  nMovMovimiento_Id  \
+    count         8060.0  8060.000000               8060.0             8060.0   
+    mean             0.0    21.772333                  0.0                0.0   
+    std              0.0     5.487131                  0.0                0.0   
+    min              0.0     9.000000                  0.0                0.0   
+    25%              0.0    18.000000                  0.0                0.0   
+    50%              0.0    20.000000                  0.0                0.0   
+    75%              0.0    22.000000                  0.0                0.0   
+    max              0.0    33.000000                  0.0                0.0   
+    
+           nMovOrdenCampo_Id  
+    count             8060.0  
+    mean                 0.0  
+    std                  0.0  
+    min                  0.0  
+    25%                  0.0  
+    50%                  0.0  
+    75%                  0.0  
+    max                  0.0
+Al relizar una consulta para poder ver cuales cabezeras no contaban con detalle(era lo primero que pensaba enfocar el proyecto) me boto 2 fechas raras
+```python
+consulta1 = "select m.Movimiento_Id, dmovfecha, smovdocumento, documento_id, mdc.Movimiento_Id as id_mdc from movimiento m left join movimientodetalleconsumo mdc on m.movimiento_id= mdc.movimiento_id where documento_id <>5 and mdc.Movimiento_Id is null"
+df_consulta1= pd.read_sql(consulta1, db, )
+df_consulta1
+```
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Movimiento_Id</th>
+      <th>dmovfecha</th>
+      <th>smovdocumento</th>
+      <th>documento_id</th>
+      <th>id_mdc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>326</td>
+      <td>2018-09-14</td>
+      <td>322</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>491</td>
+      <td>2018-09-15</td>
+      <td>486</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>566</td>
+      <td>2018-09-16</td>
+      <td>561</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>737</td>
+      <td>1969-12-31</td>
+      <td></td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>755</td>
+      <td>2018-09-18</td>
+      <td>747</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>881</td>
+      <td>2018-09-19</td>
+      <td>872</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>968</td>
+      <td>1969-12-31</td>
+      <td></td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>1429</td>
+      <td>2018-09-25</td>
+      <td>1417</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1951</td>
+      <td>2018-09-30</td>
+      <td>1936</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>2909</td>
+      <td>2018-10-11</td>
+      <td>2885</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>3414</td>
+      <td>2018-10-16</td>
+      <td>3388</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>6848</td>
+      <td>2018-11-20</td>
+      <td>6806</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>7968</td>
+      <td>2018-11-30</td>
+      <td>7924</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>7969</td>
+      <td>2018-11-30</td>
+      <td>7925</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>7984</td>
+      <td>2018-11-30</td>
+      <td>7937</td>
+      <td>1</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+Al momento de ordenar por fechas se encontro 2 fechas que eran de 1969-12-31 que al consultar sobre ellas me dijeron que esas 2 eran porque se habian registrado mal, asi que como eran las unicas pase a eliminarlas con:
+```python
+cursor.execute ("""delete from movimiento where movimiento.Movimiento_Id = 737""")
+``` 
+```python
+cursor.execute ("""delete from movimiento where movimiento.Movimiento_Id = 968""")
+```
+Quedando ahora 8058 registro
+```python
+print (df_movimiento.shape) 
+```
+    (8058, 30)
+    
 ### Dividimos los datos en datos para ENTRENAR, PROBAR y VALIDAR ⌨️
 
 la base de datos cuenta con los datos desde el 11-09-2018 hasta el 30-11-2018(8060 Registros )
