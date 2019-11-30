@@ -337,19 +337,95 @@ df_movimiento
 
 ver cantidad de registros
 
+```python
+print (df_movimiento.shape) 
 ```
-print (df_movimiento.shape)
-```
+
+    (8060, 30)
+    
 ver los tipos de datos
 
-```
+```python
 print (df_movimiento.info())
 ```
+
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 8060 entries, 0 to 8059
+    Data columns (total 30 columns):
+    Movimiento_Id            8060 non-null int64
+    dMovFecha                8060 non-null object
+    nMovTipoMovimiento_Id    8060 non-null int64
+    nMovTipopago             8060 non-null int64
+    Almacen_Id               8060 non-null int64
+    nMovTipoOrigenDestino    8060 non-null int64
+    nMovOrigenDestino_Id     8060 non-null int64
+    nMovTipodestino          8060 non-null int64
+    Documento_Id             8060 non-null int64
+    sMovDocumento            8060 non-null object
+    sMovDocReferencia        8060 non-null object
+    Moneda_Id                8060 non-null int64
+    nMovTipoCambio           8060 non-null float64
+    nMovImporte              8060 non-null float64
+    nMovIGV                  8060 non-null float64
+    nMovTotal                8060 non-null float64
+    nMovSaldo                8060 non-null float64
+    nMovTotalCancelado       8060 non-null float64
+    dMovDetraccion           8060 non-null float64
+    dMovPercepcion           8060 non-null float64
+    dMovRetencion            8060 non-null float64
+    sMovObservacion          8060 non-null object
+    nMovEstadoSunat          8060 non-null int64
+    nMovEstado               8060 non-null int64
+    nMovEliminado            8060 non-null int64
+    dMovFecha_Act            8060 non-null datetime64[ns]
+    Usuario_Id               8060 non-null int64
+    nMovClasificador_Id      8060 non-null int64
+    nMovMovimiento_Id        8060 non-null int64
+    nMovOrdenCampo_Id        8060 non-null int64
+    dtypes: datetime64[ns](1), float64(9), int64(16), object(4)
+    memory usage: 1.8+ MB
+    None
+
+
 ver si hay datos nulos
 
-```
+```python
 print (pd.isnull(df_movimiento).sum())
 ```
+
+    Movimiento_Id            0
+    dMovFecha                0
+    nMovTipoMovimiento_Id    0
+    nMovTipopago             0
+    Almacen_Id               0
+    nMovTipoOrigenDestino    0
+    nMovOrigenDestino_Id     0
+    nMovTipodestino          0
+    Documento_Id             0
+    sMovDocumento            0
+    sMovDocReferencia        0
+    Moneda_Id                0
+    nMovTipoCambio           0
+    nMovImporte              0
+    nMovIGV                  0
+    nMovTotal                0
+    nMovSaldo                0
+    nMovTotalCancelado       0
+    dMovDetraccion           0
+    dMovPercepcion           0
+    dMovRetencion            0
+    sMovObservacion          0
+    nMovEstadoSunat          0
+    nMovEstado               0
+    nMovEliminado            0
+    dMovFecha_Act            0
+    Usuario_Id               0
+    nMovClasificador_Id      0
+    nMovMovimiento_Id        0
+    nMovOrdenCampo_Id        0
+    dtype: int64
+    
+    
 
 ### Dividimos los datos en datos para ENTRENAR, PROBAR y VALIDAR ⌨️
 
